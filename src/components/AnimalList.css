@@ -1,4 +1,9 @@
 
 .AnimalList {
-    color: lightblue
+    color: black;
+}
+
+.AnimalList__list {
+    list-style-type: none;
+    text-align: center;
 }

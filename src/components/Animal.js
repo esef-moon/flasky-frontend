@@ -1,14 +1,56 @@
 import './Animal.css';
+import propTypes, { element } from  'prop-types';
+import { useState } from 'react';
+//make the element that the user interacts with <button>
+// make the even handler for that element onClick
+// configure a piece of state 
+    //decide what the state is... what is its name, type, and values.
+        //isBookmarked true or false
+        //likescount numbers 0+
+    //import use State  line 3 on this doc
+    // render the piece of state with an intial value line 18
+        //setIsBookmarked
+    //make the event handler update the state line 29 - 32
+//test it
+//style it/polish.
 
-const Animal = () => {
+const Animal = (props) => {
+    const [isBookmarked, setIsBookmarked] = useState(false);
+
+    const toggleBookmark = () => {
+        setIsBookmarked(!isBookmarked);
+    }
+    
+    //if animal is bookmarked css class name  .bookmarked, else no css class applied
+    let animalStyle = '';
+    if (isBookmarked) {
+        animalStyle = 'bookmarked';
+    }
+
 
     return (
-        <section className="Animal">
-            <h3> Name: Willow</h3>
-            <p> nickname: Simon's bb cat </p>
-            <img src="https://placekitten.com/200" alt="Willow Simon's cat"></img>
+        <section className={animalStyle}>
+            <h4> Name: {props.name}</h4>
+            {/* if species does not exist set to unknown */}
+            <p> Species: {props.species ? props.species: "Unknown" } </p>
+            <img src={ props.photoUrl } alt="Willow Simon's cat"></img>
+            <button onClick= {toggleBookmark}> Bookmark </button>
+            <p> Is bookmarked? {isBookmarked ? 
+                            "yes this animal is bookmarked" : 
+                             "no animal not bookmarked"} 
+            </p>
+
         </section>
     );
 }
 
+Animal.propTypes = {
+    name : propTypes.string.isRequired, 
+    species: propTypes.string,
+    adopted: propTypes.bool,
+    age: propTypes.number,
+    photoUrl: propTypes.string
+}
+
 export default Animal;
+
