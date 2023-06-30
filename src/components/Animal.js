@@ -18,7 +18,10 @@ const Animal = (props) => {
     const [isBookmarked, setIsBookmarked] = useState(false);
 
     const toggleBookmark = () => {
+        // ind animal is bookmarked
         setIsBookmarked(!isBookmarked);
+        // bookmark info passed up to single source of truth SST
+        props.updateBookmark(props.id)
     }
     
     //if animal is bookmarked css class name  .bookmarked, else no css class applied
@@ -27,7 +30,11 @@ const Animal = (props) => {
         animalStyle = 'bookmarked';
     }
 
-
+    const toggleDelete = () => {
+        console.log()
+        props.updateDelete(props.id)
+        
+    }
     return (
         <section className={animalStyle}>
             <h4> Name: {props.name}</h4>
@@ -35,6 +42,7 @@ const Animal = (props) => {
             <p> Species: {props.species ? props.species: "Unknown" } </p>
             <img src={ props.photoUrl } alt="Willow Simon's cat"></img>
             <button onClick= {toggleBookmark}> Bookmark </button>
+            <button onClick= {toggleDelete}> Delete</button>
             <p> Is bookmarked? {isBookmarked ? 
                             "yes this animal is bookmarked" : 
                              "no animal not bookmarked"} 
@@ -49,7 +57,10 @@ Animal.propTypes = {
     species: propTypes.string,
     adopted: propTypes.bool,
     age: propTypes.number,
-    photoUrl: propTypes.string
+    photoUrl: propTypes.string, 
+    updateBookmark: propTypes.func,
+    isBookmarked: propTypes.bool,
+    updateDelete: propTypes.func
 }
 
 export default Animal;
